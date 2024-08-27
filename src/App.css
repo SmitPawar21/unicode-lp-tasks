@@ -2,37 +2,316 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar
+{
+  width: 100%;
+  height: 20vh;
+  background-color: #1d1716;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
+.navbar h1
+{
+  font-family: 'Cinzel';
+  color: rgb(216, 216, 216);
+  font-weight: 200;
+}
+
+.navbar .add_button
+{
+  width: 15%;
+  padding: 10px 5px;
+  background-color: #a55233;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+.navbar .add_button:hover{
+  background-color: #237fb4;
+  transform:scale(1.1)
+}
+.card_area
+{
+  width: 100%;
   min-height: 100vh;
+  background-color: #402a23;
+  /* display: flex;
+  gap: 5vw;
+  flex-wrap: wrap;
+  justify-content: center; */
+  padding: 10vh 0vw;
+}
+.label
+{
+  margin-bottom: 5vh;
+  color: white;
+  font-size: 20px;
+}
+.card_block
+{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5vw;
+  justify-content: center;
+}
+
+/* #a55233 */
+
+.card
+{
+  width: 28%;
+  height: 370px;
+  background-color: #f3bc77;
+  transition: all 0.50s ease;
+  box-sizing: border-box;
+  padding: 2vh 1vw;
   display: flex;
   flex-direction: column;
+  gap: 2vh;
+}
+.card:hover{
+  transform: scale(1.1);
+}
+.card .user_info
+{
+  width: 100%;
+  height: 10%;
+  background-color: #ffa136;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding: 0vh 2vw;
+  color:#402a23;
+  font-weight: 200;
+  font-family: 'Chakra Petch';
+}
+.card .user_info span
+{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-image: url(./images/profile.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.card .title
+{
+  height: 10%;
+  font-size: 15px;
+  display: flex;
+  justify-content:flex-start;
+  align-items: end;
+  text-align: left;
+}
+.card .textarea
+{
+  width: 100%;
+  height: 59%;
+  /* border: 1px solid rgb(84, 84, 84); */
+  font-size: 13px;
+  text-align: justify;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 1vh 1vw;
+  background-color: rgba(0, 0, 0, 0.213);
+  font-family: 'Times New Roman', Times, serif;
+  border: none;
+  outline: none;
+  pointer-events: auto;
+  display: none;
+}
+.card .textarea::-webkit-scrollbar{
+  display: none;
+}
+.card textarea
+{
+  width: 100%;
+  height: 59%;
+  /* border: 1px solid rgb(84, 84, 84); */
+  font-size: 13px;
+  text-align: justify;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  padding: 1vh 1vw;
+  background-color: rgba(0, 0, 0, 0.213);
+  font-family: 'Times New Roman', Times, serif;
+  border: none;
+  outline: none;
+  pointer-events: auto;
+}
+.card textarea::-webkit-scrollbar{
+  display: none;
+}
+.card h3
+{
+  font-size: 12px;
+  color:#402a23;
+  font-weight: 600;
+  font-family: 'Chakra Petch';
+  display: flex;
+  justify-content: space-between;
+}
+.card .reactions
+{
+  width: 100%;
+  height: 10%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1vw;
+}
+.card .reactions span
+{
+  width: 30%;
+  padding: 0.5vh 0vw;
+  border-radius: 20px;
+  font-size: 15px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color:#ffa1366f;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.card .reactions span:nth-child(1):hover
+{
+  background-color: #17B169;
+}
+.card .reactions span:nth-child(2):hover
+{
+  background-color: #F47174;
+}
+.card .reactions button
+{
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.50s ease;
+  cursor: pointer;
+  background-color: #ffea96;
+  margin-left: 0.5vw;
+}
+.card .reactions button:hover
+{
+  background-color: #78bee7;
+}
+.card .reactions .save_but
+{
+  background-color: #78bee7;
+  display: none;
+}
+
+.card .reactions .delete_but:hover
+{
+  background-color: #F47174;
+}
+
+.add_post_section
+{
+  position: absolute;
+  top: 25vh;
+  width: 100%;
+  height: 70vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  display: none;
+}
+.add_post_section .add_card
+{
+  width: 70%;
+  height: 100%;
+  background-image: url(./images/back_2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  padding: 10vh 10vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  position: relative;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.add_post_section .add_card .top
+{
+  position: absolute;
+  width: 100%;
+  height: 8%;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: right;
+}
+.add_post_section .add_card .top img:hover
+{
+  cursor: pointer;
+  background-color: rgb(212, 50, 50);
+  padding: 1vh;
+}
+.add_post_section .add_card div
+{
+  display: flex;
+  justify-content: space-between;
+}
+.add_post_section .add_card div textarea
+{
+  box-sizing: border-box;
+  padding: 2vh 2vw;
+  background-color: #1f1c1c4d;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  color: white;
+  font-size: 15px;
+}
+::placeholder{
+  color: rgb(205, 205, 205);
+}
+.add_post_section .add_card div input
+{
+  box-sizing: border-box;
+  padding: 0vh 1vw;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.709);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.new_post_button
+{
+  width: 30%;
+  margin: auto;
+  padding: 1vh 0vw;
+  border: none;
+  border-radius: 4px;
+  background-color: #a55233;
+  color: white;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+.new_post_button:hover{
+  background-color: #237fb4;
 }
