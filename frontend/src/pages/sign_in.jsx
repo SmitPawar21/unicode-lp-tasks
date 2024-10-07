@@ -35,7 +35,7 @@ export const SigninPage = () => {
         })
     }
 
-    const checkData = (event)=>{
+    const checkData = async (event)=>{
         event.preventDefault();
 
         if(!(userData.email === formData.email) || !(userData.password === formData.password))
@@ -44,6 +44,20 @@ export const SigninPage = () => {
         }
         
         else{
+
+            const response = await fetch('http://localhost:5000/login',{
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: userData.email,
+                    password: userData.password,
+                })
+            })
+
+            console.log(response);
+
             navigate('/');
             alert(`Hello ${formData.name} successfully logged in`);
         }
