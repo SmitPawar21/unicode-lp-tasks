@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 //signup
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!password) {
@@ -30,7 +30,7 @@ exports.signup = async (req, res) => {
 }
 
 //login
-exports.login = async (req, res) => {
+const login = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
 
@@ -45,3 +45,4 @@ exports.login = async (req, res) => {
     res.status(201).json({ token });
 }
 
+module.exports = {signup, login};
