@@ -220,3 +220,16 @@ p{
 .login_btn:hover{
   background-color: rgba(0, 143, 109, 0.692);
 }
+
+.protected-page{
+  width: 100vw;
+  height: 100vh;
+  color: black;
+  background-color: pink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.protected-page h1{
+  color: black;
+}

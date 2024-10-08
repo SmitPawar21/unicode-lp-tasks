@@ -7,7 +7,8 @@ router.post('/signup', signup);
 router.post('/login', login);
 
 router.get('/protected', authMiddleware, (req, res)=>{
-    res.status(201).send("This is a protected route");
+    res.status(201).json({message: "you are in Protected route"});
+    console.log("welcome");
 });
 
 module.exports = router;

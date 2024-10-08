@@ -3,6 +3,7 @@ import background_2 from "../images/background_2.jpg";
 import email from "../images/email.svg";
 import pass from "../images/pass.svg";
 import { useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookies";
 
 export const SigninPage = () => {
 
@@ -13,12 +14,12 @@ export const SigninPage = () => {
 
     console.log(formData);
 
-    const [userData , setUserData] = useState({
+    const [userData, setUserData] = useState({
         email: '',
         password: ''
     })
 
-    const updateEmail = (e)=>{
+    const updateEmail = (e) => {
         let value = e.target.value;
         console.log(value);
         setUserData({
@@ -26,7 +27,7 @@ export const SigninPage = () => {
             email: value
         })
     }
-    const updatePass = (e)=>{
+    const updatePass = (e) => {
         let value = e.target.value;
         console.log(value);
         setUserData({
@@ -35,17 +36,17 @@ export const SigninPage = () => {
         })
     }
 
-    const checkData = async (event)=>{
+    const checkData = async (event) => {
         event.preventDefault();
 
-        if(!(userData.email === formData.email) || !(userData.password === formData.password))
-        {
+        if (!(userData.email === formData.email) || !(userData.password === formData.password)) {
             alert("kindly check your email and password.")
         }
-        
-        else{
 
-            const response = await fetch('http://localhost:5000/login',{
+        else {
+
+            //POST REQUESTING login data of user to backend 
+            await fetch('http://localhost:5000/login', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -55,10 +56,51 @@ export const SigninPage = () => {
                     password: userData.password,
                 })
             })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data.token);
+                    Cookies.setItem('token', data.token, {expires: 1});
+                })
+                .catch((err) => console.log(err));
 
-            console.log(response);
+            //VERIFY TOKEN from the BACKEND
+            const token = Cookies.getItem('token');
+            console.log("cookies se aya hua token", token);
+            await fetch('http://localhost:5000/protected', {
+                method: 'GET',
+                headers: {
+                    'authorization': `bearer ${token}`,
+                    'content-type': 'application/json'
+                }
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log("successful: ", data);
+                if(data.message === 'you are in Protected route'){
+                    navigate('/protected');
+                }
+                else{
+                    console.log("no no");
+                }
+            });
 
-            navigate('/');
+            //verifying from the backend (middlewares)
+            // await fetch("http://localhost:5000/protected", {
+            //     method: 'GET',
+            //     credentials: 'include'
+            // })
+            // .then((res) => {
+            //     if(res.ok) {
+            //         navigate('/protected');
+            //     } 
+            //     console.log(res);
+            //     // return res.json();
+            // })
+            // .then((data) => console.log(`when used protected: ${data}`))
+            // .catch(error => {
+            //     console.log(`error while verifying: ${error}`);
+            // })
+
             alert(`Hello ${formData.name} successfully logged in`);
         }
 
@@ -74,13 +116,13 @@ export const SigninPage = () => {
                     <h1>Sign In</h1>
 
                     <div className="input-box">
-                        <img src={email} alt="image hai"  />
-                        <input type="email" placeholder="Enter Your Email" onChange={updateEmail}/>
+                        <img src={email} alt="image hai" />
+                        <input type="email" placeholder="Enter Your Email" onChange={updateEmail} />
                     </div>
 
                     <div className="input-box">
                         <img src={pass} alt="image hai" />
-                        <input type="password" placeholder="Password" className='password' onChange={updatePass}/>
+                        <input type="password" placeholder="Password" className='password' onChange={updatePass} />
                     </div>
 
                     <button className="login_btn" onClick={checkData} >Login</button>
