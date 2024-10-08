@@ -4,6 +4,8 @@ import email from "../images/email.svg";
 import pass from "../images/pass.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookies";
+import { useEffect } from "react";
+import { useAuth } from '../components/AuthContext';
 
 export const SigninPage = () => {
 
@@ -11,6 +13,7 @@ export const SigninPage = () => {
     const { state } = location;
     const formData = state?.formData || {};
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     console.log(formData);
 
@@ -45,6 +48,7 @@ export const SigninPage = () => {
 
         else {
 
+            login(userData);
             //POST REQUESTING login data of user to backend 
             await fetch('http://localhost:5000/login', {
                 method: "POST",
