@@ -227,9 +227,38 @@ p{
   color: black;
   background-color: pink;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5vh;
 }
-.protected-page h1{
+.protected-page h1, h2{
   color: black;
+}
+.input-box-mainpage{
+  width: 40%;
+  height: 40%;
+  background-color: rgba(85, 85, 85, 0.456);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+}
+.input-box-mainpage input{
+  color: black;
+  width: 80%;
+  height: 10%;
+}
+.prot-but{
+  background-color: rgb(190, 79, 142);
+  color: white;
+  padding: 7px 13px;
+  position: absolute;
+  top: 5vh;
+  right: 5vh;
+}
+.changepass{
+  color: black;
+  padding: 7px 13px;
 }

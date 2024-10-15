@@ -38,6 +38,7 @@ const login = async (req, res) => {
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
         res.status(400).json({ error: 'Invalid credentials' });
+        return;
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -56,6 +57,7 @@ const login = async (req, res) => {
     res.status(201).json({ token, refreshToken });
 }
 
+//Refresh token
 const refreshToken = async (req, res) => {
     const token = req.headers['authorization'].split(' ')[1];
     const user = await User.findOne({token});
@@ -72,4 +74,21 @@ const refreshToken = async (req, res) => {
     });
 }
 
-module.exports = { signup, login, refreshToken };
+//Change Password
+const changePassword = async(req, res)=>{
+    const { existPass, newPass, email } = req.body;
+    const user = await User.findOne({email});
+    if(!user && !(existPass === user.password)) {
+        return res.status(403).json({error: "User credentials not valid"});
+    }
+
+    try{
+        await User.findOneAndUpdate(user._id, {password: newPass}, { new: true, runValidators: true });
+        res.status(201).json({message: "Yesss"});
+        return;
+    } catch (err){
+        res.status(403).json({error: `Something went Wrong. ${err}`});
+    }
+}
+
+module.exports = { signup, login, refreshToken, changePassword };

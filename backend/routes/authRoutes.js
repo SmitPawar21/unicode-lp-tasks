@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {signup, login, refreshToken} = require("../controllers/authController");
+const {signup, login, refreshToken, changePassword} = require("../controllers/authController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post('/signup', signup);
@@ -12,5 +12,7 @@ router.get('/protected', authMiddleware, (req, res)=>{
 });
 
 router.post('/refreshtoken', refreshToken);
+
+router.patch('/changePassword', changePassword);
 
 module.exports = router;
